@@ -10,7 +10,7 @@ use IO::Select;
 use Net::WebSocket::Server::Connection;
 use Time::HiRes qw(time);
 
-our $VERSION = '0.001001';
+our $VERSION = '0.001002';
 $VERSION = eval $VERSION;
 
 sub new {
@@ -83,7 +83,7 @@ sub start {
       my $now = time;
       if ($self->{silence_nextcheck} < $now) {
         my $lastcheck = $self->{silence_nextcheck} - $self->{silence_checkinterval};
-        $_->{conn}->send('ping') for grep { $_->{lastrecv} < $lastcheck } values $self->{conns};
+        $_->{conn}->send('ping') for grep { $_->{lastrecv} < $lastcheck } values %{$self->{conns}};
 
         $self->{silence_nextcheck} = $now + $self->{silence_checkinterval};
       }
