@@ -20,4 +20,4 @@ no_index:
 requires:
   Protocol::WebSocket: 0.12
   perl: 5.006
-version: 0.001002
+version: 0.001003
